@@ -1,0 +1,1 @@
+angular.module('myEmporium', []); // the empty brackets means that it is a new module, not a preexisting one

@@ -1,31 +1,55 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Angular One</title>
-</head>
-<body>
+<html lang="en" data-ng-app="myEmporium">
+<!-- need to link the directive in the html tag -->
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Angular One</title>
+	</head>
+	<body data-ng-controller="inventoryCtrl">
 
-<h2>Ryan's Emporium of Worthless Crap</h2>
+	<!-- {{test}} -->
 
-<h3>Add new item:</h3>
+		<h2>Ryan's Emporium of Worthless Crap</h2>
 
-<label>Name</label>
-<input type="text" />
+		<h3>Add new item:</h3>
 
-<br />
+		<label>Name</label>
+		<input data-ng-model="newItem.name" type="text" />
 
-<label>Price</label>
-<input type="number" />
+		<br />
 
-<br />
+		<label>Price</label>
+		<input data-ng-model="newItem.price" type="number" />
+	<!-- {{newItem.price | currency}} -->
+	<!-- ng model saves inputs to variables -->
+		<br />
 
-<button>Add Awesome Item</button>
+		<button data-ng-click="addItem()">Add Awesome Item</button>
+		<br />
+		<input ng-model="searchTerm.name" type="text">
+		<ul>
+		    <li data-ng-if="item.name !== hiddenItem" data-ng-repeat="item in items | orderBy:'name' | filter: searchTerm track by $index"> 
+		    	<!-- track by index is required if there are duplicates-->
+		    	{{item.name}}, Price: {{item.price | currency}} 
+		    	<button data-ng-click ="removeItem($index)">remove</button>
+		    </li>
+		    <!--ng-repeat is a directive-->
+		</ul>
 
-<ul>
-    <li></li>
-</ul>
+		<ul>
+		    <li data-ng-repeat="item in items track by $index"> 
+		    	{{item.name}} 
+		    	<button data-ng-click ="hideItem(item.name)">Hide this item</button>
+		    </li>
+		    <!--ng-repeat is a directive-->
+		</ul>
 
-
-</body>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+		<script src="./app.js"></script>
+		<script src="./inventoryCtrl.js"></script>
+	</body>
 </html>
+
+<!-- model view controller framework. 
+	model is the data, view is what the user sees, the controller is backend.
+	 pull in the script, add a module-->
